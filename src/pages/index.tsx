@@ -31,16 +31,13 @@ export default function Home({ product }: HomeProps) {
           <p>
             Get access to all the publications <br />
             <span>
-              for {new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD'
-              }).format(product.amount)} month
+              for {product.amount} month
             </span>
           </p>
-          <SubscribeButton priceId={product.priceId} />
+          <SubscribeButton />
         </section>
 
-        <Image src={avatarImg} alt="Girl conding" />
+        <Image src="/images/avatar.svg" width={1000} height={1000} alt="Girl coding" />
       </main>
     </>
   )
@@ -53,7 +50,10 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const product = {
     priceId: price.id,
-    amount: price.unit_amount / 100,
+    amount: new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    }).format(price.unit_amount / 100)
   }
 
   return {
